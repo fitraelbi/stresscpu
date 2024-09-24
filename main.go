@@ -9,7 +9,7 @@ import (
 
 func cpuHeavyWork() {
 	// Loop untuk membuat beban CPU
-	for i := 0; i < 1000000000; i++ {
+	for i := 0; i < 1000000000000; i++ {
 		math.Sqrt(float64(i)) // Komputasi berat untuk mengisi CPU
 	}
 }
