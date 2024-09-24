@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 # Build aplikasi
-RUN go mod init cpuload && go mod tidy
+# RUN go mod init cpuload && go mod tidy
 RUN go build -o cpuload .
 
 # Stage kedua: menggunakan base image yang lebih ringan
