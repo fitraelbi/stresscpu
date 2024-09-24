@@ -1,32 +1,18 @@
 package main
 
-import (
-	"fmt"
-	"math"
-	"runtime"
-	"time"
-)
-
-func cpuHeavyWork() {
-	// Loop untuk membuat beban CPU
-	for i := 0; i < 1000000000000; i++ {
-		math.Sqrt(float64(i)) // Komputasi berat untuk mengisi CPU
-	}
-}
+import "github.com/gofiber/fiber/v2"
 
 func main() {
-	// Menggunakan semua core yang tersedia
-	numCPU := runtime.NumCPU()
-	fmt.Printf("Menggunakan %d CPU\n", numCPU)
-	runtime.GOMAXPROCS(numCPU)
+	app := fiber.New()
 
-	// Menjalankan beban kerja di banyak goroutine
-	for i := 0; i < numCPU; i++ {
-		go cpuHeavyWork()
-	}
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendString("Hello, Stress Service!")
+	})
 
-	// Memberi waktu untuk goroutine berjalan
-	time.Sleep(10 * time.Second)
+	app.Post("/cpu", func(c *fiber.Ctx) error {
+		
+		return c.SendString("Done")
+	})
 
-	fmt.Println("Selesai!")
+	app.Listen(":3000")
 }
